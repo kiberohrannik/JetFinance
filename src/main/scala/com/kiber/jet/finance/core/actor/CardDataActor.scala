@@ -4,6 +4,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import com.kiber.jet.finance.core.actor.AcquirerActor.{AcquirerEvent, OnResolvedCardData}
 import com.kiber.jet.finance.core.domain.Requisites
+import com.kiber.jet.finance.core.service.CardDataResolver
 
 object CardDataActor {
 
@@ -13,16 +14,11 @@ object CardDataActor {
   final case class ResolveCard(requisites: Requisites, sender: ActorRef[AcquirerEvent]) extends CardDataCommand
 
 
-  def apply(): Behavior[CardDataMessage] = Behaviors.receiveMessage {
+  def apply(cardResolver: CardDataResolver): Behavior[CardDataMessage] = Behaviors.receiveMessage {
     case ResolveCard(cardRequisites, sender) =>
       println("ResolveCard")
-      cardRequisites.resolved.cardData = resolve(cardRequisites.incoming.cardData)
+      cardResolver.resolve(cardRequisites.incoming.cardData)
       sender ! OnResolvedCardData(cardRequisites)
       Behaviors.same
-  }
-
-  private def resolve(data: String): String = {
-    println("Mocked card data resolution...")
-    "resolved: " + data
   }
 }
