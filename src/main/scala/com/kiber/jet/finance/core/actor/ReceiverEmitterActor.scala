@@ -2,7 +2,7 @@ package com.kiber.jet.finance.core.actor
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import com.kiber.jet.finance.core.actor.AcquirerActor.{AcquirerMessage, OnCompletedC2C}
+import com.kiber.jet.finance.core.actor.P2PManagerActor.{P2PMessage, OnCompletedP2P}
 import com.kiber.jet.finance.core.domain.Requisites
 
 object ReceiverEmitterActor {
@@ -10,13 +10,13 @@ object ReceiverEmitterActor {
   sealed trait ReceiverEmitterMessage
 
   sealed trait ReceiverEmitterCommand extends ReceiverEmitterMessage
-  final case class CompleteC2C(requisites: Requisites, sender: ActorRef[AcquirerMessage]) extends ReceiverEmitterCommand
+  final case class CompleteP2P(requisites: Requisites, sender: ActorRef[P2PMessage]) extends ReceiverEmitterCommand
 
   def apply(): Behavior[ReceiverEmitterMessage] = Behaviors.receive((context, message) =>
     message match {
-      case CompleteC2C(requisites, sender) =>
-        println("CompleteC2C")
-        sender ! OnCompletedC2C(requisites)
+      case CompleteP2P(requisites, sender) =>
+        println(s"${context.self.path} ------- CompleteC2C")
+        sender ! OnCompletedP2P(requisites)
         Behaviors.same
     }
   )

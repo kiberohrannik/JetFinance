@@ -2,7 +2,7 @@ package com.kiber.jet.finance.core.actor
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import com.kiber.jet.finance.core.actor.AcquirerActor.{AcquirerEvent, OnResolvedCardData}
+import com.kiber.jet.finance.core.actor.P2PManagerActor.{P2PEvent, OnResolvedCardData}
 import com.kiber.jet.finance.core.domain.Requisites
 import com.kiber.jet.finance.core.service.CardDataResolver
 
@@ -11,7 +11,7 @@ object CardDataActor {
   sealed trait CardDataMessage
 
   sealed trait CardDataCommand extends CardDataMessage
-  final case class ResolveCard(requisites: Requisites, sender: ActorRef[AcquirerEvent]) extends CardDataCommand
+  final case class ResolveCard(requisites: Requisites, sender: ActorRef[P2PEvent]) extends CardDataCommand
 
 
   def apply(cardResolver: CardDataResolver): Behavior[CardDataMessage] = Behaviors.receiveMessage {
