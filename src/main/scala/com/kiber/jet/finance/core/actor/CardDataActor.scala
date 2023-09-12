@@ -2,23 +2,32 @@ package com.kiber.jet.finance.core.actor
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import com.kiber.jet.finance.core.actor.P2PManagerActor.{P2PEvent, OnResolvedCardData}
+import com.kiber.jet.finance.core.actor.P2PManagerActor.{CardDataEvent, OnResolvedRecipientCardData, OnResolvedSenderCardData}
 import com.kiber.jet.finance.core.domain.Requisites
-import com.kiber.jet.finance.core.service.CardDataResolver
+import com.kiber.jet.finance.core.service.CardResolver
 
 object CardDataActor {
 
   sealed trait CardDataMessage
 
   sealed trait CardDataCommand extends CardDataMessage
-  final case class ResolveCard(requisites: Requisites, sender: ActorRef[P2PEvent]) extends CardDataCommand
+  final case class ResolveSenderCard(requisites: Requisites, sender: ActorRef[CardDataEvent]) extends CardDataCommand
+  final case class ResolveRecipientCard(requisites: Requisites, sender: ActorRef[CardDataEvent]) extends CardDataCommand
 
 
-  def apply(cardResolver: CardDataResolver): Behavior[CardDataMessage] = Behaviors.receiveMessage {
-    case ResolveCard(cardRequisites, sender) =>
-      println("ResolveCard")
-      cardResolver.resolve(cardRequisites.incoming.cardData)
-      sender ! OnResolvedCardData(cardRequisites)
+  //TODO change one cardResolver to POOL of resolvers (e.g)
+  def apply(cardResolver: CardResolver): Behavior[CardDataMessage] = Behaviors.receiveMessage {
+
+    case ResolveSenderCard(cardRequisites, sender) =>
+      println("ResolveSenderCard")
+      val result = cardResolver.resolve(cardRequisites.incoming.cardData)
+      sender ! OnResolvedSenderCardData(cardRequisites)
+      Behaviors.same
+
+    case ResolveRecipientCard(cardRequisites, sender) =>
+      println("ResolveRecipientCard")
+      val result = cardResolver.resolve(cardRequisites.incoming.cardData)
+      sender ! OnResolvedRecipientCardData(cardRequisites)
       Behaviors.same
   }
 }

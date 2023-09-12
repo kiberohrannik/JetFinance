@@ -30,10 +30,10 @@ object JetFinanceActor {
     val requisites = Requisites(IncomingRequisites(cardData, Random.nextString(10)), ResolvedRequisites(cardData, ""))
 
     acquirerActor ! StartP2P(requisites)
-    acquirerActor ! StartP2P(requisites)
-    acquirerActor ! StartP2P(requisites)
-    acquirerActor ! StartP2P(requisites)
-    acquirerActor ! StartP2P(requisites)
+//    acquirerActor ! StartP2P(requisites)
+//    acquirerActor ! StartP2P(requisites)
+//    acquirerActor ! StartP2P(requisites)
+//    acquirerActor ! StartP2P(requisites)
 
 
     Behaviors.receiveSignal {
