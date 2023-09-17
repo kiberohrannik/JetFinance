@@ -2,7 +2,7 @@ package com.kiber.jet.finance.core.service
 
 import com.kiber.jet.finance.core.domain.{CardData, Requisites}
 
-trait CardResolver {
+trait CardVerifier {
 
-  def resolve(cardData: CardData): Boolean
+  def verify(cardData: CardData): Boolean
 }

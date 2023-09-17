@@ -4,7 +4,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import com.kiber.jet.finance.core.actor.P2PManagerActor.{CardDataEvent, OnResolvedRecipientCardData, OnResolvedSenderCardData}
 import com.kiber.jet.finance.core.domain.Requisites
-import com.kiber.jet.finance.core.service.CardResolver
+import com.kiber.jet.finance.core.service.CardVerifier
 
 object CardDataActor {
 
@@ -16,17 +16,17 @@ object CardDataActor {
 
 
   //TODO change one cardResolver to POOL of resolvers (e.g)
-  def apply(cardResolver: CardResolver): Behavior[CardDataMessage] = Behaviors.receiveMessage {
+  def apply(cardResolver: CardVerifier): Behavior[CardDataMessage] = Behaviors.receiveMessage {
 
     case ResolveSenderCard(cardRequisites, sender) =>
       println("ResolveSenderCard")
-      val result = cardResolver.resolve(cardRequisites.incoming.cardData)
+      val result = cardResolver.verify(cardRequisites.incoming.cardData)
       sender ! OnResolvedSenderCardData(cardRequisites)
       Behaviors.same
 
     case ResolveRecipientCard(cardRequisites, sender) =>
       println("ResolveRecipientCard")
-      val result = cardResolver.resolve(cardRequisites.incoming.cardData)
+      val result = cardResolver.verify(cardRequisites.incoming.cardData)
       sender ! OnResolvedRecipientCardData(cardRequisites)
       Behaviors.same
   }
