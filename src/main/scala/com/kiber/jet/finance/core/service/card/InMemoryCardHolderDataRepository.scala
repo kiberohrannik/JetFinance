@@ -2,21 +2,21 @@ package com.kiber.jet.finance.core.service.card
 
 class InMemoryCardHolderDataRepository extends CardHolderDataRepository {
 
-  //TODO create parser of this data
+  //TODO create parser of this data from CSV file (for example)
   override def getAllData(): Seq[(String, String, String)] = {
     List(
       ("American Express", "34|37", "15"),
       ("Diners Club Carte Blanche", "300-305", "14"),
       ("Diners Club International", "36", "14"),
       ("Diners Club US and Canada", "54|55", "16"),
-//      ("Discover Card", "6011|622126-622925|644-649|65", "16"),
+      ("Discover Card", "6011|622126-622925|644-649|65", "16"),
       ("InstaPayment", "637-639", "16"),
       ("JCB", "3528-3589", "16"),
-//      ("Laser", "6304|6706|6771|6709", "16-19"),
-//      ("Maestro", "5018|5020|5038|6304|6759|6761|6762|6763", "12-19"),
+      ("Laser", "6304|6706|6771|6709", "16-19"),
+      ("Maestro", "5018|5020|5038|6304|6759|6761|6762|6763", "12-19"),
       ("Mastercard", "51-55", "16"),
       ("Visa", "4", "13-16"),
-//      ("Visa Electron", "4026|417500|4508|4844|4913|4917", "16")
+      ("Visa Electron", "4026|417500|4508|4844|4913|4917", "16")
     )
   }
 
