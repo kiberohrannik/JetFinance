@@ -15,18 +15,18 @@ object CardDataActor {
   final case class ResolveRecipientCard(requisites: Requisites, sender: ActorRef[CardDataEvent]) extends CardDataCommand
 
 
-  //TODO change one cardResolver to POOL of resolvers (e.g)
-  def apply(cardResolver: CardVerifier): Behavior[CardDataMessage] = Behaviors.receiveMessage {
-
+  def apply(cardVerifiers: Seq[CardVerifier]): Behavior[CardDataMessage] = Behaviors.receiveMessage {
     case ResolveSenderCard(cardRequisites, sender) =>
       println("ResolveSenderCard")
-      val result = cardResolver.verify(cardRequisites.incoming.cardData)
+      cardVerifiers.foreach(_ verify cardRequisites.incoming.cardData)
+
       sender ! OnResolvedSenderCardData(cardRequisites)
       Behaviors.same
 
     case ResolveRecipientCard(cardRequisites, sender) =>
       println("ResolveRecipientCard")
-      val result = cardResolver.verify(cardRequisites.incoming.cardData)
+      cardVerifiers.foreach(_ verify cardRequisites.incoming.cardData)
+
       sender ! OnResolvedRecipientCardData(cardRequisites)
       Behaviors.same
   }

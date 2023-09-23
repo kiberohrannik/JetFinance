@@ -9,7 +9,7 @@ import com.kiber.jet.finance.core.actor.ReceiverEmitterActor.ReceiverEmitterMess
 import com.kiber.jet.finance.core.actor.SenderEmitterActor.SenderEmitterMessage
 import com.kiber.jet.finance.core.actor.{CardDataActor, P2PManagerActor, ReceiverEmitterActor, SenderEmitterActor}
 import com.kiber.jet.finance.core.domain.{CardData, IncomingRequisites, Requisites, ResolvedRequisites}
-import com.kiber.jet.finance.core.service.NoneCardVerifier
+import com.kiber.jet.finance.core.service.{HolderPatternCardVerifier, NoneCardVerifier}
 
 import scala.util.Random
 
@@ -51,7 +51,9 @@ object JetFinanceActor {
   private def createCardDataActorPool(poolSize: Int): PoolRouter[CardDataMessage] = {
     val pool = Routers.pool(poolSize) {
       // make sure the workers are restarted if they fail
-      Behaviors.supervise(CardDataActor(new NoneCardVerifier())).onFailure[Exception](SupervisorStrategy.restart)
+
+      val cardDataActor = CardDataActor(List(new NoneCardVerifier, new HolderPatternCardVerifier))
+      Behaviors.supervise(cardDataActor).onFailure[Exception](SupervisorStrategy.restart)
     }
 
     pool.withRandomRouting()

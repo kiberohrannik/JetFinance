@@ -4,5 +4,9 @@ import com.kiber.jet.finance.core.domain.{CardData, Requisites}
 
 trait CardVerifier {
 
-  def verify(cardData: CardData): Boolean
+  /**
+   * It is important to throw
+   * @param cardData
+   */
+  def verify(cardData: CardData): Unit
 }
