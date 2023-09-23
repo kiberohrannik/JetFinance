@@ -1,4 +1,4 @@
-package com.kiber.jet.finance.core.service.card
+package com.kiber.jet.finance.core.service.card.holder
 
 class InMemoryCardHolderDataRepository extends CardHolderDataRepository {
 

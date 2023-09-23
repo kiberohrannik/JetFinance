@@ -1,6 +1,6 @@
-package com.kiber.jet.finance.core.service
+package com.kiber.jet.finance.core.service.card
 
-import com.kiber.jet.finance.core.domain.{CardData, Requisites}
+import com.kiber.jet.finance.core.domain.CardData
 
 trait CardVerifier {
 

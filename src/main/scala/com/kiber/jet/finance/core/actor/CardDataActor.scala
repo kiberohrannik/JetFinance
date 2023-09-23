@@ -4,7 +4,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import com.kiber.jet.finance.core.actor.P2PManagerActor.{CardDataEvent, OnResolvedRecipientCardData, OnResolvedSenderCardData}
 import com.kiber.jet.finance.core.domain.Requisites
-import com.kiber.jet.finance.core.service.CardVerifier
+import com.kiber.jet.finance.core.service.card.CardVerifier
 
 object CardDataActor {
 

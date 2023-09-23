@@ -1,4 +1,5 @@
-package com.kiber.jet.finance.core.service
+package com.kiber.jet.finance.core.service.card
+
 import com.kiber.jet.finance.core.domain.CardData
 
 class NoneCardVerifier extends CardVerifier {

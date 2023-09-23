@@ -1,7 +1,8 @@
-package com.kiber.jet.finance.core.service
+package com.kiber.jet.finance.core.service.card
+
 import com.kiber.jet.finance.core.domain.CardData
 import com.kiber.jet.finance.core.service.card.exception.InvalidCardException
-import com.kiber.jet.finance.core.service.card.matcher.DefinedCardHolderMatchFunctions
+import com.kiber.jet.finance.core.service.card.holder.matcher.DefinedCardHolderMatchFunctions
 
 class HolderPatternCardVerifier extends CardVerifier {
 

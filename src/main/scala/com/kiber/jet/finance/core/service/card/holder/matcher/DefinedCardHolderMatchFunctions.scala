@@ -1,4 +1,4 @@
-package com.kiber.jet.finance.core.service.card.matcher
+package com.kiber.jet.finance.core.service.card.holder.matcher
 
 object DefinedCardHolderMatchFunctions {
 

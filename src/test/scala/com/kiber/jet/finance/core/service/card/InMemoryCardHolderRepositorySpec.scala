@@ -1,5 +1,6 @@
 package com.kiber.jet.finance.core.service.card
 
+import com.kiber.jet.finance.core.service.card.holder.InMemoryCardHolderDataRepository
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.tagobjects.Retryable
 

@@ -1,6 +1,6 @@
-package com.kiber.jet.finance.core.service.card.matcher
+package com.kiber.jet.finance.core.service.card.holder.matcher
 
-import com.kiber.jet.finance.core.service.card.matcher.DefinedCardHolderMatchFunctions.{americanExpress, dinersClubCarteBlanche, visa}
+import com.kiber.jet.finance.core.service.card.holder.matcher.DefinedCardHolderMatchFunctions.{americanExpress, visa}
 import org.scalatest.flatspec.AnyFlatSpec
 
 class DefinedCardHolderMatchFunctionsSpec extends AnyFlatSpec {
